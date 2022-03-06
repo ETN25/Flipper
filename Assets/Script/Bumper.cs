@@ -12,6 +12,8 @@ public class Bumper : MonoBehaviour
     public Renderer Renderer;
     public AudioSource Sound;
 
+    public GameObject Particule;
+
     public bool touched;
     public float CD;
 
@@ -44,11 +46,14 @@ public class Bumper : MonoBehaviour
     {
         if (collision.transform.tag == Tag)
         {
+            Instantiate(Particule, collision.transform.position, Quaternion.identity);
             Rigidbody otherRB = collision.rigidbody;
             otherRB.AddExplosionForce(Bounce, collision.contacts[0].point, 5);
             touched = true;
             Sound.pitch = 1 + Random.Range(-0.1f, 0.1f);
             Sound.Play();
+
+            
         }
     }
 }

@@ -10,6 +10,7 @@ public class ReloadBall : MonoBehaviour
     public float BaseStrengt = 1500;
     public AudioSource Sound;
     public AudioSource Explosion;
+    public GameObject Particule;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class ReloadBall : MonoBehaviour
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
+                Instantiate(Particule, transform.position, new Quaternion(0f, 0f, 0f, 0f));
                 Explosion.pitch = 1f - Strength / 10f;
                 Strength = Strength * 500f + BaseStrengt;
                 Vector3 Jump = new Vector3(0f, 0f, Strength);
@@ -46,11 +48,12 @@ public class ReloadBall : MonoBehaviour
                 Sound.pitch = 1f;
                 Explosion.pitch = 1f;
                 Strength = 0f;
+
             }
             
         }
 
-        if (gameObject.transform.position.z > 2f)
+        if (gameObject.transform.position.z > 3f)
         {
             AllowStart = false;
         }

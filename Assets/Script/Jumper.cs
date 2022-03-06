@@ -13,6 +13,7 @@ public class Jumper : MonoBehaviour
     public Material TouchedMaterial;
     public Renderer Renderer;
     public AudioSource Sound;
+    public GameObject Particules;
 
     public bool touched;
     public float CD;
@@ -51,6 +52,7 @@ public class Jumper : MonoBehaviour
             touched = true;
             Sound.pitch = 0.8f + Random.Range(-0.1f, 0.1f);
             Sound.Play();
+            Instantiate(Particules, transform.position, transform.rotation);
         }
     }
 }
