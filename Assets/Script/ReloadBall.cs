@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ReloadBall : MonoBehaviour
-{
-    public float CD;
+{ 
     public Rigidbody Ball;
     public bool AllowStart = true;
     public float Strength;
@@ -22,7 +21,7 @@ public class ReloadBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (AllowStart)
+        if (AllowStart && gameObject.transform.position.z < - 11f)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -42,28 +41,27 @@ public class ReloadBall : MonoBehaviour
                 Strength = Strength * 500f + BaseStrengt;
                 Vector3 Jump = new Vector3(0f, 0f, Strength);
                 Ball.AddForce(Jump);
-                AllowStart = false;
                 Sound.Stop();
                 Explosion.Play();
-            }
-
-        }
-
-        if (gameObject.transform.position.z < -15f)
-        {
-            if (CD > 1f)
-            {
-                transform.position = new Vector3(11f,0.5f,-11f);
-                Ball.velocity = new Vector3(0f,0f,0f);
-                CD = 0f;
-                AllowStart = true;
+                Sound.pitch = 1f;
+                Explosion.pitch = 1f;
                 Strength = 0f;
             }
-            else
-            {
-                CD += 1f * Time.deltaTime;
-            }
             
+        }
+
+        if (gameObject.transform.position.z > 2f)
+        {
+            AllowStart = false;
+        }
+
+        if (gameObject.transform.position.z < -20f)
+        {
+            transform.position = new Vector3(11f, 0.5f, -11f);
+            Ball.velocity = new Vector3(0f, 0f, 0f);
+            AllowStart = true;
+            Strength = 0f;
+
         }
     }
 }
